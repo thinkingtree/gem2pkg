@@ -4,6 +4,7 @@ require 'YAML'
 require 'rubygems'
 require 'rubygems/dependency_installer'
 require 'erb'
+require 'tmpdir'
 
 class Gem2Pkg
   def build(gemname)
@@ -73,6 +74,7 @@ class Gem2Pkg
     end
 
     pkg_name = "#{gemspec.name}-#{gemspec.version}"
+    installed_size = nil
     Dir.mktmpdir(pkg_name) do |payload_staging_dir|
       dependencies.each do |dependency|
         `mkdir -p #{payload_staging_dir}#{dependency.full_gem_path}`
@@ -89,7 +91,7 @@ class Gem2Pkg
       `mkbom #{payload_staging_dir} #{pkg_name}.pkg/Contents/Archive.bom`
 
       puts "Archiving payload..."
-      `cd #{payload_staging_dir} && pax -wz -x cpio . > ../#{pkg_name}.pkg/Contents/Archive.pax.gz`
+      `pax -wz -x cpio \"#{payload_staging_dir}\" > #{pkg_name}.pkg/Contents/Archive.pax.gz`
 
       installed_size = (`/usr/bin/du -k -s #{payload_staging_dir}`.split(' ')[0]).to_i * 1024
     end
