@@ -1,6 +1,6 @@
 # Gem2Pkg
 
-Gem2Pkg bundles a ruby gem into a Mac OSX package file to be instaled on other machines without needing to use 'gem'.  This is handy for gems whose primary purpose is to expose a binary for the user to run, when the user may not be a developer and know how to deal with 'gem install' yadda yadda.
+Gem2Pkg bundles a ruby gem into a Mac OSX package structure to be installed on other machines without needing to use 'gem'.  This is handy for gems whose primary purpose is to expose a binary for the user to run, when the user may not be a developer and know how to deal with 'gem install' yadda yadda.
 
 My primary motivation for creating this was to bundle the 'chef' gem and its dependencies up as an installer so that Mac OSX computers could be easily bootstrapped with chef without needing to install XCode, etc.
 
