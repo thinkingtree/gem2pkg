@@ -129,6 +129,7 @@ class Gem2Pkg
     `chmod 444 #{pkg_name}.pkg/Contents/Info.plist`
     `chmod 555 #{pkg_name}.pkg/Contents/Resources/postflight`
 
+    puts "Done.  Package has been saved as '#{pkg_name}.pkg'"
     # flatten package
     #puts "Flattening package..."
     #`pkgutil --flatten #{pkg_name}.pkg #{pkg_name}.flat.pkg`
