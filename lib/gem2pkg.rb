@@ -106,7 +106,7 @@ class Gem2Pkg
     end
 
     puts "Generating package info..."
-    erb_path = File.join(File.dirname(__FILE__, "..", "resources", "Info.plist.erb")
+    erb_path = File.join(File.dirname(__FILE__), "..", "resources", "Info.plist.erb")
 
     src = File.read erb_path
     erb = ERB.new(src)
