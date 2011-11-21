@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'gem2pkg'
+exit(Gem2Pkg.new.build(ARGV[0]))
