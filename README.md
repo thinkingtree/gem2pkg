@@ -18,7 +18,7 @@ If you wanted to make an installer for the 'chef' gem.  First, install chef:
 
 	gem install chef
 
-You might want to also make sure all the supporting gems that chef uses are up to date, as gem2pkg uses the newest installed vesion of each gem that satisfies the dependency requirements:
+You might want to also make sure all the supporting gems that chef uses are up to date, as gem2pkg uses the newest installed version of each gem that satisfies the dependency requirements:
 
 	gem update
 
