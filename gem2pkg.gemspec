@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'gem2pkg'
-  s.version     = '0.1.2'
+  s.version     = '0.1.3'
   s.date        = '2011-11-21'
   s.summary     = "OSX packages from Ruby Gems!"
   s.description = "Creates Mac OSX installer packages for 10.5 and up from ruby gems"

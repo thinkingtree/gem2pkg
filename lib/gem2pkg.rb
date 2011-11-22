@@ -94,7 +94,8 @@ class Gem2Pkg
       `mkbom #{payload_staging_dir} #{pkg_name}.pkg/Contents/Archive.bom`
 
       puts "Archiving payload..."
-      `pax -wz -x cpio \"#{payload_staging_dir}\" > #{pkg_name}.pkg/Contents/Archive.pax.gz`
+      `cd #{payload_staging_dir} && pax -wz -x cpio . > Archive.pax.gz`
+      `cp #{payload_staging_dir}/Archive.pax.gz #{pkg_name}.pkg/Contents/Archive.pax.gz`
 
       installed_size = (`/usr/bin/du -k -s #{payload_staging_dir}`.split(' ')[0]).to_i * 1024
     end
