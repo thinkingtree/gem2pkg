@@ -6,7 +6,9 @@ My primary motivation for creating this was to bundle the 'chef' gem and its dep
 
 ## Requirements
 
-This gem requires rubygems 1.8.11 to be installed.  While it will probably work with older versions of rubygems, and hasn't been tested with them yet, so the requirement is set high for now
+This gem requires rubygems 1.3.6 to be installed.  While it will probably work with older versions of rubygems, and hasn't been tested with them yet, so the requirement is set high for now
+
+If rvm is installed, use gem2pkg with the system ruby (rvm use system).  Since we're building packages to be installed on OSX systems that do not not have RVM installed, we want to be safe and use the same environment to build the package.
 
 ## Usage
 
@@ -31,3 +33,4 @@ The package will be outputted in the current folder, named chef-0.10.4.pkg (if t
 ## Known Issues
 
 * Does not build flat packages
+* Only tested so far on OSX Lion
