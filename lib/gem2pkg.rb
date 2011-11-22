@@ -7,6 +7,35 @@ require 'erb'
 require 'tmpdir'
 
 class Gem2Pkg
+  def gather_dependencies(specs)
+    dependency_list = Gem::DependencyList.new
+    dependency_list.add(*specs)
+
+    to_do = specs.dup
+    seen = {}
+
+    until to_do.empty? do
+      spec = to_do.shift
+      next if spec.nil? or seen[spec.name]
+      seen[spec.name] = true
+
+      deps = spec.runtime_dependencies
+      deps.each do |dep|
+        result = dep.to_spec
+        if result == nil
+          puts "Could not find local gem to satisfy dependency #{dep.name} (#{dep.requirement})"
+          next
+        end
+        next if seen[result.name]
+        to_do.push(result)
+        dependency_list.add result
+      end
+    end
+
+    dependency_list.dependency_order.reverse
+  end
+
+
   def build(gemname)
     if gemname == nil
       puts "Please specify the name of the gem to package."
@@ -40,32 +69,6 @@ class Gem2Pkg
     #inst.install gemspec.name, gemspec.version
 
     puts "Building dependency list from dependency tree..."
-
-    def gather_dependencies(specs)
-      dependency_list = Gem::DependencyList.new
-      dependency_list.add(*specs)
-
-      to_do = specs.dup
-      seen = {}
-
-      until to_do.empty? do
-        spec = to_do.shift
-        next if spec.nil? or seen[spec.name]
-        seen[spec.name] = true
-
-        deps = spec.runtime_dependencies
-        deps.each do |dep|
-          result = dep.to_spec
-          if result == nil
-            puts "Could not find local gem to satisfy dependency #{dep.name} (#{dep.requirement})"
-          end
-          next if seen[result.name]
-          dependency_list.add result
-        end
-      end
-
-      dependency_list.dependency_order.reverse
-    end
 
     puts "We will be bundling up the following gems into our installer:"
     dependencies = gather_dependencies([gemspec])
