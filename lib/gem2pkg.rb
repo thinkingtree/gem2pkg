@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require 'YAML'
+require 'yaml'
 require 'rubygems'
 require 'rubygems/dependency_installer'
 require 'erb'
@@ -48,6 +48,11 @@ class Gem2Pkg
       return -2
     end
 
+    if Gem::VERSION < "1.8.0"
+      puts "You have rubygems #{Gem::VERSION} installed-- gem2pkg requires rubygems >= 1.8.0"
+      return -3
+    end
+
     gemspec = Gem::Specification.find_by_name(gemname)
     if gemspec == nil
       dep = Gem::Dependency.new(gemname)
@@ -60,7 +65,7 @@ class Gem2Pkg
 
       puts "Gem is not installed locally-- install with:"
       puts "gem install #{gemname} -v #{gemspec.version}"
-      return -4
+      return -5
     end
 
     puts "Making installer for gem #{gemname} (#{gemspec.version})"
